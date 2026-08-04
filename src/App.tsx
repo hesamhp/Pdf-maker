@@ -16,9 +16,51 @@ import {
   X,
   BookText,
   RotateCcw,
+  WandSparkles,
 } from 'lucide-react';
 
-const SAMPLE_TEXT = `بنام خدا 
+// ── Text cleanup utility ──
+function cleanupText(text: string): string {
+  let result = text;
+
+  // 1. Normalize line endings
+  result = result.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  // 2. Remove horizontal rules / separators:  ---, ***, ___, ===, ─── etc.
+  result = result.replace(/^[\s]*[-–—=_*~·•─━]{2,}[\s]*$/gm, '');
+
+  // 3. Remove trailing whitespace from each line
+  result = result.replace(/[^\S\n]+$/gm, '');
+
+  // 4. Remove leading whitespace from each line
+  result = result.replace(/^[^\S\n]+/gm, '');
+
+  // 5. Collapse 2+ consecutive newlines into 1 (no blank lines between)
+  result = result.replace(/\n{2,}/g, '\n');
+
+  // 6. Add a blank line before any line that contains "جلسه"
+  result = result.replace(/(?<!\n)\n(?=.*جلسه)/g, '\n\n');
+
+  // 6. Collapse multiple spaces into one
+  result = result.replace(/ {2,}/g, ' ');
+
+  // 7. Remove spaces before punctuation
+  result = result.replace(/ +([.،؛:؟!)\]»])/g, '$1');
+
+  // 8. Add space after punctuation if missing (but not before newline)
+  result = result.replace(/([.،؛:؟!](?!\n))(?=[^\s\d)\]».])/g, '$1 ');
+
+  // 9. Fix Persian/Arabic half-space issues: remove spaces around ZWNJ
+  result = result.replace(/ +\u200C/g, '\u200C');
+  result = result.replace(/\u200C +/g, '\u200C');
+
+  // 10. Trim leading/trailing whitespace
+  result = result.trim();
+
+  return result;
+}
+
+const SAMPLE_TEXT = `بنام خدا
 
 این یک متن نمونه فارسی است که برای تست برنامه نوشته شده است. این برنامه قابلیت نوشتن متن روی قالب PDF از پیش طراحی شده را دارد.
 
@@ -362,13 +404,31 @@ export default function App() {
                       <span className="hidden sm:inline">متن نمونه</span>
                     </button>
                     {content && (
-                      <button
-                        onClick={() => setContent('')}
-                        className="glass-button-secondary rounded-lg px-3 py-1.5 text-xs text-white/50 hover:text-red-400 flex items-center gap-1.5"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">پاک کردن</span>
-                      </button>
+                      <>
+                        <button
+                          onClick={() => {
+                            const cleaned = cleanupText(content);
+                            if (cleaned !== content) {
+                              setContent(cleaned);
+                              addToast('متن مرتب شد ✨', 'success');
+                            } else {
+                              addToast('متن از قبل مرتب است', 'info');
+                            }
+                          }}
+                          className="glass-button-secondary rounded-lg px-3 py-1.5 text-xs text-white/50 hover:text-purple-400 flex items-center gap-1.5"
+                          title="مرتب‌سازی متن: حذف اینترهای اضافی، فاصله‌های زیاد و تمیزکاری"
+                        >
+                          <WandSparkles className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">مرتب‌سازی</span>
+                        </button>
+                        <button
+                          onClick={() => setContent('')}
+                          className="glass-button-secondary rounded-lg px-3 py-1.5 text-xs text-white/50 hover:text-red-400 flex items-center gap-1.5"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">پاک کردن</span>
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>

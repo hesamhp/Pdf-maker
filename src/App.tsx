@@ -60,7 +60,7 @@ function cleanupText(text: string): string {
   return result;
 }
 
-const SAMPLE_TEXT = `بسم الله الرحمن الرحیم
+const SAMPLE_TEXT = `بنام خدا
 
 این یک متن نمونه فارسی است که برای تست برنامه نوشته شده است. این برنامه قابلیت نوشتن متن روی قالب PDF از پیش طراحی شده را دارد.
 
@@ -97,7 +97,7 @@ export default function App() {
   const [bottomMargin, setBottomMargin] = useState<number>(90);
   const [leftMargin, setLeftMargin] = useState<number>(50);
   const [rightMargin, setRightMargin] = useState<number>(50);
-  const [fontSize, setFontSize] = useState<number>(12);
+  const [fontSize, setFontSize] = useState<number>(16);
   const [lineHeight, setLineHeight] = useState<number>(1.8);
   const [textColor, setTextColor] = useState({ r: 33, g: 33, b: 33 });
   const [isGenerating, setIsGenerating] = useState(false);
@@ -678,7 +678,7 @@ export default function App() {
         </div>
 
         <footer className="mt-8 text-center text-white/15 text-xs pb-6">
-          ساخته شده توسط HESVM
+          طراحی و توسعه توسط HESAM
         </footer>
       </div>
     </div>

@@ -97,7 +97,7 @@ export default function App() {
   const [bottomMargin, setBottomMargin] = useState<number>(90);
   const [leftMargin, setLeftMargin] = useState<number>(50);
   const [rightMargin, setRightMargin] = useState<number>(50);
-  const [fontSize, setFontSize] = useState<number>(16);
+  const [fontSize, setFontSize] = useState<number>(12);
   const [lineHeight, setLineHeight] = useState<number>(1.8);
   const [textColor, setTextColor] = useState({ r: 33, g: 33, b: 33 });
   const [isGenerating, setIsGenerating] = useState(false);
@@ -469,8 +469,8 @@ export default function App() {
                     </div>
                     <button
                       onClick={() => {
-                        setTopMargin(100);
-                        setBottomMargin(90);
+                        setTopMargin(80);
+                        setBottomMargin(80);
                         setLeftMargin(50);
                         setRightMargin(50);
                       }}

@@ -63,7 +63,7 @@ function wrapLines(
 
 // ── render one line → small PNG bytes ──
 
-const SCALE = 2;
+const SCALE = 3;
 
 function renderLineToPNG(
   text: string,

@@ -60,7 +60,7 @@ function cleanupText(text: string): string {
   return result;
 }
 
-const SAMPLE_TEXT = `بنام خدا
+const SAMPLE_TEXT = `بسم الله الرحمن الرحیم
 
 این یک متن نمونه فارسی است که برای تست برنامه نوشته شده است. این برنامه قابلیت نوشتن متن روی قالب PDF از پیش طراحی شده را دارد.
 
@@ -469,8 +469,8 @@ export default function App() {
                     </div>
                     <button
                       onClick={() => {
-                        setTopMargin(80);
-                        setBottomMargin(80);
+                        setTopMargin(100);
+                        setBottomMargin(90);
                         setLeftMargin(50);
                         setRightMargin(50);
                       }}
@@ -678,7 +678,7 @@ export default function App() {
         </div>
 
         <footer className="mt-8 text-center text-white/15 text-xs pb-6">
-          طراحی و توسعه توسط HESAM
+          ساخته شده توسط HESVM
         </footer>
       </div>
     </div>
